@@ -4,6 +4,7 @@
 
 驴妈妈
 http://ticket.lvmama.com/scenic-{$id}
+100000-165000 fetched
 
 携程
 http://piao.ctrip.com/dest/t{$id}.html
@@ -13,6 +14,8 @@ http://menpiao.tuniu.com/t_{$id}
 
 同程
 http://www.ly.com/scenery/BookSceneryTicket_{$id}.html
+1-100000 fetched
+100000-200000
 
 去哪儿
 http://piao.qunar.com/ticket/detail_{$id}.html

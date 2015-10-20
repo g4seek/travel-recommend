@@ -3,7 +3,6 @@
 # 解析html源代码
 # 1.通过urllib2请求url并获取网页源代码
 # 2.将html源代码保存在本地目录下
-# 3.用beautifulsoup 提取html标签
 
 # urllib2官方文档
 # https://docs.python.org/2.7/library/urllib2.html
@@ -14,11 +13,11 @@ import datetime
 import threadpool
 
 
-class HtmlParser:
+class PageFetcher:
     def __init__(self):
-        self.name = 'HtmlParser'
-        self.uri_template = 'http://ticket.lvmama.com/scenic-{0}'
-        self.file_dir = '/Users/lvzimin/Desktop/files/lvmama'
+        # self.uri_template = 'http://ticket.lvmama.com/scenic-{0}'
+        self.uri_template = 'http://www.ly.com/scenery/BookSceneryTicket_{0}.html'
+        self.file_dir = '/Users/lvzimin/Desktop/files/ly/'
         self.thread_num = 50
 
     # 获取指定uri的html源代码
@@ -35,7 +34,7 @@ class HtmlParser:
             return response.read()
 
     # 把文本存入文件
-    def save_txt_file(self, file_name, content):
+    def save_html_file(self, file_name, content):
         abs_path = self.file_dir + file_name
         new_file = open(abs_path, 'w')
         new_file.write(content)
@@ -47,14 +46,14 @@ class HtmlParser:
         date_str = datetime.datetime.now().strftime("%H:%M:%S")
         if source != '':
             print(date_str + ',saving file...id:' + str(index))
-            self.save_txt_file(str(index) + '.html', source)
+            self.save_html_file(str(index) + '.html', source)
         else:
             print(date_str + ',skip file...id:' + str(index))
 
     # 尝试循环抓取网页
     def try_loop_fetch(self, start, end):
         fetch_range = []
-        for i in range(start, end):
+        for i in range(start, end + 1):
             fetch_range.append(i)
 
         pool = threadpool.ThreadPool(self.thread_num)
@@ -64,5 +63,5 @@ class HtmlParser:
 
 
 if __name__ == '__main__':
-    htmlParser = HtmlParser()
-    htmlParser.try_loop_fetch(100205, 162902)
+    pageFetcher = PageFetcher()
+    pageFetcher.try_loop_fetch(100000, 100000)
